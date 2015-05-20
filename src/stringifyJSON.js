@@ -4,18 +4,52 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
-  // Termination Condition if obj is function or undefined
-  // Base case is if item is not an array or object;
+
+  //Base Case
   if (typeof obj === 'number' || obj === null || typeof obj === 'boolean'){
   	return String(obj);
   }
-  //Check if item is a string value
   else if (typeof obj === 'string'){
   	return '"'+obj+'"';
   }
-  //Check if item is a number, null, or Boolean
-  //Check if item is undefined
+  
   // Recursive case for arrays
+  else if (obj instanceof Array){
+
+  	var transformedArray = obj.map(function(item){
+  		if (item === undefined || typeof item === 'function'){
+  			return 'null';
+  		} else{
+  			return stringifyJSON(item);
+  		}
+  	}); 
+
+  	return '['+String(transformedArray)+']';
+  } 
+
   //Recursive case for objects
+   else {
+    var transformedObject = '{';
+    var objKeys = [];
+    var objValues = [];
+
+    for (var key in obj){
+      if(obj[key] === undefined || typeof obj[key] === 'function'){
+        objKeys = objKeys;
+        objValues = objValues;
+      } else{
+        objKeys.push(stringifyJSON(key));
+        objValues.push(stringifyJSON(obj[key]));
+      }
+    } 
+
+    for (var i = 0; i<objKeys.length; i++){
+        transformedObject += objKeys[i]+':'+objValues[i];
+        if (i<objKeys.length-1){
+          transformedObject += ',';
+        }
+      }
+      
+    return transformedObject += "}";
+  }
 };
