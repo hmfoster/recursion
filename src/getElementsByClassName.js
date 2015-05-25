@@ -7,10 +7,12 @@
 var getElementsByClassName = function(className){
   var elements = [];
   var findElements = function(element){
-  	if (element.classList.contains(className)){
+  	if (element.classList && element.classList.contains(className)){
   		elements.push(element);
   	} for (var node in element.childNodes){
   		findElements(element.childNodes[node]);
   	}
-  } return findElements(document.body)
+  }
+  findElements(document.body); 
+  return elements;
 };
