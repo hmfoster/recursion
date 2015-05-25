@@ -4,22 +4,13 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function(node, className){
-  var find = function(value, object){
-    for (var key in object){
-      if (value === object[key]){
-          return true;
-      }
-    }
-	}
-  var elements = []
-  if (find(className, node)){
-  	elements.push(node);
-  }
-  if (node.childNodes){
-  	for (var key in node.childNodes){
-  		getElementsByClassName(node.childNodes[key]);
+var getElementsByClassName = function(className){
+  var elements = [];
+  var findElements = function(element){
+  	if (element.classList.contains(className)){
+  		elements.push(element);
+  	} for (var node in element.childNodes){
+  		findElements(element.childNodes[node]);
   	}
-  }
-  return elements;
+  } return findElements(document.body)
 };
