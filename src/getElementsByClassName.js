@@ -12,7 +12,7 @@ var getElementsByClassName = function(className){
   	} for (var node in element.childNodes){
   		findElements(element.childNodes[node]);
   	}
-  }
+  };
   findElements(document.body); 
   return elements;
 };

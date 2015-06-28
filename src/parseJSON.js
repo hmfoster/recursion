@@ -38,10 +38,10 @@ var parseJSON = function(json) {
     var contents = json.slice(1, json.length -1).split(",").map(function(item){return item.split(":");});
     parsed = {};
     for (var i = 0; i < contents.length; i++) {
-      contents[i][0] = contents[i][0].trim();
-      contents[i][1] = contents[i][1].trim();
+      contents[i][0] = parseJSON(contents[i][0].trim());
+      contents[i][1] = parseJSON(contents[i][1].trim());
       parsed[contents[i][0]] = contents[i][1];
-    };
+    }
 
   } return parsed;
 };
